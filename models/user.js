@@ -1,4 +1,6 @@
 var mongoose = require('mongoose');
+const crypto = require('crypto');
+const uuidv1 = require('uuid/v1');
 
 var userSchema = new mongoose.Schema({
     name: {
@@ -23,9 +25,9 @@ var userSchema = new mongoose.Schema({
         trim: true
     },
     //TODO: Come Back Here
-    password: {
+    encry_password: {
         type: String,
-        trim: true
+        required: true
     },
     salt: String,
     role: {
@@ -38,5 +40,18 @@ var userSchema = new mongoose.Schema({
     }
 });
 
+
+userSchema.method = {
+    securePassword: function(plainpassword){
+        if (!password) return ""
+        try {
+            return crypto.createHmac('sha256', this.salt)
+            .update(plainpassword)
+            .digest('hex');
+        } catch (err) {
+            return "";
+        }
+    }
+}
 
 module.exports = mongoose.model("User", userSchema)
