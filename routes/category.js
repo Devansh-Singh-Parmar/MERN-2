@@ -7,7 +7,7 @@ const {
   getCategory,
   getAllCategory,
   updateCategory,
-  removeCategory
+  removeCategory,
 } = require("../controllers/category");
 const { isSignedIn, isAdmin, isAuthenticated } = require("../controllers/auth");
 const { getUserById } = require("../controllers/user");
